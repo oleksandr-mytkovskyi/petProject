@@ -2,53 +2,34 @@ import React, { Component } from 'react';
 import './post-list-item.css';
 
 export default class PostListItem extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            important: false,
-            likes: false,
-        };
-        this.onImportant = this.onImportant.bind(this);
-        this.onLikes = this.onLikes.bind(this);
-    }
-    onLikes() {
-        this.setState(({likes}) => ({
-            likes: !likes
-        }));
-    }
-
-    onImportant() {
-        this.setState(({important}) => ({
-             important: !important
-        }))
-    }
+ 
 
     render() {
-        const {label} = this.props;
-        const{important, likes } = this.state;
+        const {label, onDelete, onToogleLike, onToggleImportant, important, like} = this.props;
         let classNames = 'app-list-item d-flex justify-content-between';
         if (important) {
             classNames = `${classNames} important`;
         }
-        if(likes) {
+        if(like) {
             classNames = `${classNames} like`;
         }
         return (
            
             <div className={classNames}>
-                <span className='app-list-item-label' onClick={this.onLikes}>
+                <span className='app-list-item-label' onClick={onToogleLike}>
                     {label}
                 </span>
                 <div className='d-flex justify-content-center align-items-center'>
                     <button 
                     type='button' 
                     className='btn-star btn-sm'
-                    onClick={this.onImportant}>
+                    onClick={onToggleImportant}>
                         <i className='fa fa-star'></i>
                     </button>
                     <button 
                     type='button' 
-                    className='btn-trash btn-sm'>
+                    className='btn-trash btn-sm'
+                    onClick={onDelete}>
                         <i className='fa fa-trash-o'></i>
                     </button>
                     <i className='fa fa-heart'></i>
